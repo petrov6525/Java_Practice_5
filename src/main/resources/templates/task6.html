@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .flex {
+        display: flex;
+        width: 100%;
+    }
+    .form {
+        width: 30%;
+    }
+    .text {
+        flex: 1;
+        padding: 15px;
+        height: 100%;
+        border-left: 1px solid gray;
+    }
+</style>
+<body>
+<header th:insert="~{sections/header :: header}">
+
+</header>
+<h1>Task 6</h1>
+<div class="flex">
+    <div class="form">
+        <form action="/three-files-in-one" method="post">
+            <div>
+                <label>
+                    File 1 Path
+                    <p>
+                        <input type="text" name="file_path_1" required/>
+                    </p>
+                </label>
+            </div>
+            <div>
+                <label>
+                    File 2 Path
+                    <p>
+                        <input type="text" name="file_path_2" required/>
+                    </p>
+                </label>
+            </div>
+            <div>
+                <label>
+                    File 3 Path
+                    <p>
+                        <input type="text" name="file_path_3" required/>
+                    </p>
+                </label>
+            </div>
+            <div>
+                <label>
+                    File 4 Path
+                    <p>
+                        <input type="text" name="file_path_4" required/>
+                    </p>
+                </label>
+            </div>
+
+            <button>
+                Rewrite
+            </button>
+        </form>
+    </div>
+    <div class="text"
+         th:if="${content != null}">
+
+        <p th:text="${content}"></p>
+    </div>
+</div>
+</body>
+</html>

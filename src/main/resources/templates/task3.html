@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .flex {
+        display: flex;
+        width: 100%;
+    }
+    .form {
+        width: 30%;
+    }
+    .text {
+        flex: 1;
+        padding: 15px;
+        height: 100%;
+        border-left: 1px solid gray;
+    }
+</style>
+<body>
+<header th:insert="~{sections/header :: header}">
+
+</header>
+<h1>Task 3</h1>
+<div class="flex">
+    <div class="form">
+        <form action="/word-count" method="post">
+            <label>
+                File Path
+                <p>
+                    <input type="text" name="file_path" required/>
+                </p>
+            </label>
+            <label>
+                Search word
+                <p>
+                    <input type="text" name="search_word" required/>
+                </p>
+            </label>
+            <button>
+                Find
+            </button>
+        </form>
+    </div>
+    <div class="text"
+         th:if="${content != null}">
+        <div>
+            <span th:text="${searchWord}"></span>
+            <span> - </span>
+            <span th:text="${count}"></span>
+        </div>
+        <p th:text="${content}">
+
+        </p>
+    </div>
+</div>
+</body>
+</html>

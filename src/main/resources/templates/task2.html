@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .flex {
+        display: flex;
+        width: 100%;
+    }
+    .gap-10 {
+        gap: 10px;
+    }
+    .form {
+        width: 30%;
+    }
+    .text {
+        flex: 1;
+        padding: 15px;
+        height: 100%;
+        border-left: 1px solid gray;
+    }
+    .pagination-button {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        border: 1px solid gray;
+    }
+    .active {
+        border: 2px solid orangered;
+    }
+    .wrap {
+        flex-wrap: wrap;
+    }
+</style>
+<body>
+<header th:insert="~{sections/header :: header}">
+
+</header>
+<h1>Task 2</h1>
+<div class="flex">
+    <div class="form">
+        <form action="/get-file-content-with-pagination" method="post">
+            <label>
+                File Path
+                <p>
+                    <input type="text" name="file_path" required/>
+                </p>
+            </label>
+            <label>
+                Max Symbol On Page
+                <p>
+                    <input type="number" name="max_symbols" required
+                           min="10" value="100"/>
+                </p>
+            </label>
+            <button>
+                Get Content
+            </button>
+        </form>
+    </div>
+    <div class="text"
+         th:if="${content != null}">
+        <div class="flex gap-10 wrap">
+            <div th:each="page : ${pages}">
+                <form action="/get-file-content-with-page" method="post">
+                    <input type="hidden" name="file_path" th:value="${filePath}"/>
+                    <input type="number" hidden name="max_symbols" th:value="${maxSymbols}"/>
+                    <input type="number" hidden name="current_page" th:value="${page}"/>
+
+                    <button class="pagination-button"
+                            th:class="${page == currentPage ? 'active' : ''}"
+                            th:text="${page}">
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <p th:text="${content}">
+
+        </p>
+    </div>
+</div>
+</body>
+</html>

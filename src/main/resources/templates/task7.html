@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .flex {
+        display: flex;
+        width: 100%;
+    }
+    .form {
+        width: 30%;
+    }
+    .text {
+        flex: 1;
+        padding: 15px;
+        height: 100%;
+        border-left: 1px solid gray;
+    }
+</style>
+<body>
+<header th:insert="~{sections/header :: header}">
+
+</header>
+<h1>Task 7</h1>
+<div class="flex">
+    <div class="form">
+        <form action="/erase-disabled-words" method="post">
+            <div>
+                <label>
+                    File Path
+                    <p>
+                        <input type="text" name="file_path" required/>
+                    </p>
+                </label>
+            </div>
+            <div id="badWords">
+                <div>
+                    <label>
+                        Disabled word
+                        <p>
+                            <input type="text" name="bad_words" required/>
+                        </p>
+                    </label>
+                </div>
+            </div>
+
+            <button type="button" id="addButton">
+                Add Word
+            </button>
+
+            <button>
+                Erase
+            </button>
+        </form>
+    </div>
+    <div class="text"
+         th:if="${content != null}">
+        <div th:each="badWord : ${badWords}">
+            <span th:text="${badWord}"></span>
+            <span> - </span>
+            <span th:text="${badWordsInfo.get(badWord)}"></span>
+            <span> times </span>
+        </div>
+        <p th:text="${content}"></p>
+    </div>
+</div>
+<script>
+    const button = document.getElementById("addButton");
+    button.addEventListener("click", function (e) {
+        const inputsDiv = document.getElementById("badWords");
+        const div = document.createElement("div");
+        const label = document.createElement("label");
+        const p = document.createElement("p");
+        const input = document.createElement("input");
+
+        input.setAttribute("type", "text");
+        input.setAttribute("name", "bad_words");
+        input.setAttribute("required", "true");
+
+        p.appendChild(input);
+        label.innerText = "Disabled Word";
+        label.appendChild(p);
+        div.appendChild(label);
+        inputsDiv.appendChild(div);
+    })
+</script>
+</body>
+</html>
